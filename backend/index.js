@@ -5,15 +5,20 @@ import mongoose from 'mongoose';
 import product from './routes/productRoutes.js';
 import middlewareError from './middleware/error.js';
 import user from './routes/userRoute.js';
+import cookieParser from 'cookie-parser';
+
 
 
 const app = express();
 dotEnv.config();
 
+app.use(express.json());
+app.use(cookieParser());
+
+
 const PORT = process.env.PORT || 3000;
 const dbUrl = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ecom";
 
-app.use(express.json());
 
 
 
