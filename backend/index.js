@@ -20,8 +20,6 @@ const PORT = process.env.PORT || 3000;
 const dbUrl = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ecom";
 
 
-
-
 // DATABASE CONNECTION
 async function mongoConnection() {
     await mongoose.connect(dbUrl);
