@@ -3,6 +3,7 @@ import User from "../models/userModel.js";
 import catchAsyncErrors from "../middleware/catchAsync.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import { sendToken } from "../utils/jwtToken.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 
 // Register new user
@@ -53,4 +54,40 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
         success: true,
         message: "Logged Out Successfully!"
     })
+})
+
+// Forgot Password
+export const forgotPassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+        return next(errorHandler(404, "User not found"));
+    }
+    //Get resetPassword token
+    const resetToken = user.getResetPasswordToken();
+    await user.save({ validateBeforeSave: false });
+
+    const resetPasswordUrl = `${req.protocol}://${req.get('host')}/password/reset/${resetToken}`;
+    const message = `Your password reset token is :- \n\n ${resetPasswordUrl} 
+    \n\n If you have not requested this email then, please ignore it`;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "BVerse Password Recovery",
+            message,
+        })
+        res.status(200).json({
+            success: true,
+            message: `Email sent to ${user.email} successfully`,
+        });
+
+    } catch (error) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save({ validateBeforeSave: false });
+
+        return next(errorHandler(500, error.message))
+    }
+
 })
