@@ -123,4 +123,31 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
     await user.save()
     // Send a new authentication token to the client
     sendToken(user, 200, res);
+});
+
+//Get user details
+export const getUserDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+// Update User Password
+export const updatePassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select("+password");
+
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+    if (!isPasswordMatched) {
+        return next(errorHandler(400, "Old Password does not match"));
+    }
+    if (req.body.newPassword !== req.body.confirmPassword) {
+        return next(errorHandler(400, "Password does not match"));
+    }
+    
+    user.password = req.body.newPassword;
+    await user.save();
+    sendToken(user, 200, res);
 })
