@@ -4,9 +4,10 @@ import { authorizeRoles, isAuthenticatedUser } from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.get('/products',  getAllProducts);
+router.get('/products', getAllProducts);
 router.get('/products/:id', getProductDetails);
-router.post('/products/new', isAuthenticatedUser, authorizeRoles("admin"), createProduct);
+//Admin routes
+router.post('/admin/products/new', isAuthenticatedUser, authorizeRoles("admin"), createProduct);
 // using route for multiple routes
 router.route("/products/:id")
     .put(isAuthenticatedUser, authorizeRoles("admin"), updateProduct)
