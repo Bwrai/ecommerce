@@ -56,12 +56,13 @@ const productSchema = mongoose.Schema({
                 type: String,
                 required: true,
             },
-            ratings: {
+            rating: {
                 type: Number,
                 required: true,
             },
             comment: {
                 type: String,
+                required: true,
             }
         }
     ],
