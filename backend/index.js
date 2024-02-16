@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import product from './routes/productRoutes.js';
 import middlewareError from './middleware/error.js';
 import user from './routes/userRoute.js';
+import order from './routes/orderRoute.js';
 import cookieParser from 'cookie-parser';
 
 
@@ -35,6 +36,7 @@ mongoConnection();
 // Configure API endpoints for routes. 
 app.use('/api', product);
 app.use('/api', user);
+app.use('/api', order);
 
 
 
