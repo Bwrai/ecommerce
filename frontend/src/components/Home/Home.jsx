@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Product from './Product.jsx'
 import "./Home.css";
+import Metadata from "../layout/Metadata.jsx";
 
 const product = {
     name: 'Black T-shirt',
@@ -12,6 +13,7 @@ const product = {
 function Home() {
   return (
     <>
+    <Metadata title="BwraiMart" />
       <div className="banner">
         <p>Welcome to BwraiMart</p>
         <h1>Shopping made easy with BwraiMart</h1>

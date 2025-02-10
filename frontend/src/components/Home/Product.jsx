@@ -27,7 +27,7 @@ const Product = ({ product }) => {
           </p>
           <span>(256 reviews)</span>
         </span>
-        <span>{product.price}</span>
+        <span>₹{product.price}</span>
       </div>
     </Link>
   );
