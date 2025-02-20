@@ -75,7 +75,7 @@ export const forgotPassword = catchAsyncErrors(async (req, res, next) => {
     try {
         await sendEmail({
             email: user.email,
-            subject: "BVerse Password Recovery",
+            subject: "BwraiMart Password Recovery",
             message,
         })
         res.status(200).json({

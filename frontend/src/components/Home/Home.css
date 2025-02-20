@@ -19,8 +19,9 @@
 
 .banner h1 {
     margin: 5px;
-    font: 600 2.5em "Roboto";
+    font: 600 2.5em "Roboto", sans-serif;
 }
+
 
 .productHeading {
     text-align: center;
@@ -36,88 +37,8 @@
 .container {
     display: flex;
     margin: 3px;
-    width: 2;
+    width: 100%;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
-}
-
-/* Product Part */
-.productCard {
-    position: relative;
-    width: 200px;
-    height: 330px;
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    border: 1px solid #ebf0f2;
-    background-color: white;
-    margin-bottom: 25px;
-    border-radius: 3px;
-
-}
-
-.productCard:hover {
-    /* border: 1px solid #8794a7; */
-    box-sizing: border-box;
-    transition: 0.4s;
-    border: 1px solid #d1dde3;
-    box-shadow: #353b41;
-    border-radius: 3px;
-}
-
-.image {
-    position: relative;
-
-    width: fit-content;
-}
-
-.productCard img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 5px;
-    position: relative;
-    padding: 2px;
-
-}
-
-.productCard img:hover {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    padding: 0;
-}
-
-.productCard div {
-    margin: 2px;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.productCard p {
-    text-align: center;
-    font-weight: 400;
-}
-
-.productCard span {
-    text-align: center;
-    justify-content: center;
-}
-
-div span {
-    text-align: center;
-}
-
-.reviews_section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-}
-
-p .react_stars {
-    align-items: center;
-    width: fit-content;
 }

@@ -7,6 +7,7 @@ import middlewareError from './middleware/error.js';
 import user from './routes/userRoute.js';
 import order from './routes/orderRoute.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 
 
 
@@ -15,10 +16,15 @@ dotEnv.config();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+    origin: 'http://localhost:5173', // React frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  }));
 
 
-const PORT = process.env.PORT || 3000;
-const dbUrl = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ecom";
+const PORT = process.env.PORT || 5000;
+const dbUrl = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ecommerce";
 
 
 // DATABASE CONNECTION

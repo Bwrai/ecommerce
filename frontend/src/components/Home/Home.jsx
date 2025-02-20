@@ -3,22 +3,19 @@ import Product from './Product.jsx'
 import "./Home.css";
 import Metadata from "../layout/Metadata.jsx"
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../features/productSlice.js";
+import { clearErrors, getProducts } from "../../features/productSlice.js";
 
-
-const product = {
-  name: 'White T-shirt',
-  images: [{ url: "https://media.istockphoto.com/id/488160041/photo/mens-shirt.jpg?s=612x612&w=0&k=20&c=xVZjKAUJecIpYc_fKRz_EB8HuRmXCOOPOtZ-ST6eFvQ=" }],
-  price: "5000",
-  _id: "manveer"
-}
 
 function Home() {
   const dispatch = useDispatch();
-  const { product } = useSelector((state) => state.product)
+  const { products } = useSelector((state) => state.product)
 
   useEffect(() => {
     dispatch(getProducts())
+
+    return () => {
+      if(products.length === 0) dispatch(clearErrors())
+    }
   }, [dispatch])
   return (
     <>
@@ -31,14 +28,12 @@ function Home() {
         <h2 className="productHeading">Featured Products</h2>
       </div>
       <div className="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+
+        {
+          products && products.map((product) => (
+            <Product key={product._id} product={product} />
+          ))
+        }
       </div>
     </>
   );

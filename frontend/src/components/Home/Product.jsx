@@ -14,22 +14,38 @@ const options = {
 
 const Product = ({ product }) => {
   return (
-    <Link className="productCard">
+    <Link to={`/product/${product._id}`} className="productCard">
       <div className="image">
         <img src={product.images[0].url} alt={product.name} />
       </div>
 
       <p>{product.name}</p>
       <div className="reviews_section">
-        <span>
-          <p className="react_stars">
-            <ReactStars {...options} />
-          </p>
-          <span>(256 reviews)</span>
+        <span className="react_stars">
+          <ReactStars {...options} />
         </span>
-        <span>₹{product.price}</span>
+        <span>(256 reviews)</span>
       </div>
+
+      <span className="price">₹{product.price}</span>
     </Link>
+
+    // <Link className="productCard">
+    //   <div className="image">
+    //     <img src={product.images[0].url} alt={product.name} />
+    //   </div>
+
+    //   <p>{product.name}</p>
+    //   <div className="reviews_section">
+    //     <span>
+    //       <p className="react_stars">
+    //         <ReactStars {...options} />
+    //       </p>
+    //       <span>(256 reviews)</span>
+    //     </span>
+    //     <span>₹{product.price}</span>
+    //   </div>
+    // </Link>
   );
 };
 
