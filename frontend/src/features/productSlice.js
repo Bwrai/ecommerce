@@ -8,9 +8,10 @@ export const getProducts = createAsyncThunk(
         try {
             const { data } = await axios.get("/api/products");
             return data;
-
+            
         } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Something went wrong!");
+            return rejectWithValue(
+                error.response?.data?.message || error.message || "Something went wrong!");
         }
     }
 

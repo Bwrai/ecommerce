@@ -1,23 +1,36 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Product from './Product.jsx'
 import "./Home.css";
 import Metadata from "../layout/Metadata.jsx"
-import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, getProducts } from "../../features/productSlice.js";
 import Loader from "../layout/Loader/Loader.jsx";
+import { showAlert } from "../../features/alertSlice.js";
+import { v4 as uuidv4 } from 'uuid';
 
 
 function Home() {
   const dispatch = useDispatch();
-  const { products, loading, productsCount } = useSelector((state) => state.product)
+  const { products, loading, error, productsCount } = useSelector((state) => state.product)
+  const preErrorRef = useRef(null);
 
   useEffect(() => {
     dispatch(getProducts())
-
-    return () => {
-      if (products.length === 0) dispatch(clearErrors())
-    }
   }, [dispatch])
+
+  useEffect(() => {
+    if (error && error !== preErrorRef.current) {
+      preErrorRef.current = error;
+      dispatch(showAlert({
+        id: uuidv4(),
+        type: "error",
+        message: error
+      }));
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error])
+
   return (
     <>
       {loading ? <Loader /> :

@@ -1,0 +1,88 @@
+/* Alert Container */
+.alert-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1050;
+}
+
+/* Alert Box */
+.alert {
+  width: 320px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out, fadeOut 0.5s ease-in 3s forwards;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Alert Icons */
+.alert::before {
+  content: "ℹ️"; /* Default icon */
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* Alert Variants */
+.alert-success {
+  border-left: 4px solid #31a24c;
+}
+
+.alert-success::before {
+  content: "✅";
+  color: #31a24c;
+}
+
+.alert-error {
+  border-left: 4px solid #d93025;
+}
+
+.alert-error::before {
+  content: "❌";
+  color: #d93025;
+}
+
+.alert-warning {
+  border-left: 4px solid #fbbc05;
+}
+
+.alert-warning::before {
+  content: "⚠️";
+  color: #fbbc05;
+}
+
+.alert-info {
+  border-left: 4px solid #1877f2;
+}
+
+.alert-info::before {
+  content: "ℹ️";
+  color: #1877f2;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+}
