@@ -8,17 +8,35 @@ export const getProducts = createAsyncThunk(
         try {
             const { data } = await axios.get("/api/products");
             return data;
-            
+
         } catch (error) {
             return rejectWithValue(
-                error.response?.data?.message || error.message || "Something went wrong!");
+                error.response?.data?.message || error.message || "Something went wrong!"
+            );
         }
     }
 
 )
+//Fetch Product details
+export const getProductDetails = createAsyncThunk(
+    "products/details",
+    async (id, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.get(`/api/products/${id}`)
+            return data;
+        }
+        catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || error.message || "Something went Wrong!"
+            );
+        }
+    }
+)
+
 
 const initialState = {
     products: [],
+    product: {},
     loading: false,
     error: null,
 }
@@ -33,6 +51,7 @@ const productSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            // Get All Products
             .addCase(getProducts.pending, (state) => {
                 state.loading = true;
             })
@@ -45,6 +64,18 @@ const productSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
                 state.products = [];
+            })
+            // Get Product Details
+            .addCase(getProductDetails.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getProductDetails.fulfilled, (state, action) => {
+                state.loading = false;
+                state.product = action.payload.product;
+            })
+            .addCase(getProductDetails.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             })
     }
 })
