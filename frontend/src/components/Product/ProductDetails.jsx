@@ -5,6 +5,7 @@ import { getProductDetails } from '../../features/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component'
+import ReviewCard from './ReviewCard';
 
 
 const ProductDetails = () => {
@@ -99,7 +100,7 @@ const ProductDetails = () => {
                 product.reviews?.length > 0 ? (
                     <div>
                         {product.reviews.map((review) => (
-                            <div>{review}</div>
+                            <ReviewCard key={review._id} review={review} />
                         ))}
                     </div>
                 ) : (

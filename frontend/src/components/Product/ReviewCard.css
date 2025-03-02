@@ -1,0 +1,76 @@
+/* ReviewCard.css */
+
+.reviewCard {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 350px;
+    margin: 15px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.reviewCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.reviewCard img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid #f0f0f0;
+}
+
+.reviewCard p {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.4;
+}
+
+.reviewCard .MuiRating-root {
+    margin-bottom: 12px;
+}
+
+.reviewCard .MuiRating-iconFilled {
+    color: #ffd700; /* Gold star color */
+}
+
+.reviewCard .MuiRating-iconEmpty {
+    color: #e0e0e0; /* Light gray empty stars */
+}
+
+.reviewCardComment {
+    display: block;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    font-style: italic;
+    word-wrap: break-word;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .reviewCard {
+        max-width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+    }
+
+    .reviewCard img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .reviewCard p {
+        font-size: 1rem;
+    }
+
+    .reviewCardComment {
+        font-size: 0.9rem;
+    }
+}
