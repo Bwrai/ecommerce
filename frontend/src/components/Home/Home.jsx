@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Product from './Product.jsx'
 import "./Home.css";
 import Metadata from "../layout/Metadata.jsx"
 import { clearErrors, getProducts } from "../../features/productSlice.js";
 import Loader from "../layout/Loader/Loader.jsx";
 import { showAlert } from "../../features/alertSlice.js";
 import { v4 as uuidv4 } from 'uuid';
+import ProductCard from "./ProductCard.jsx";
 
 
 function Home() {
@@ -47,7 +46,7 @@ function Home() {
 
             {
               products && products.map((product) => (
-                <Product key={product._id} product={product} />
+                <ProductCard key={product._id} product={product} />
               ))
             }
           </div>

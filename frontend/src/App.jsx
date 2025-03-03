@@ -5,6 +5,7 @@ import Header from "./components/layout/Header/Header";
 import Alert from './components/Alert/Alert';
 import "./styles/Alert.css";
 import ProductDetails from "./components/Product/ProductDetails";
+import Products from "./components/Product/Products";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/products" element={<Products />} />
         {/* Add more routes here */}
       </Routes>
       <Footer />

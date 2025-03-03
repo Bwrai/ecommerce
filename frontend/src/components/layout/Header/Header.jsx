@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Header.css";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { MdSearch, MdMenu, MdClose } from "react-icons/md";
+import { Link } from "react-router-dom";
+
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,7 +15,9 @@ function Header() {
     <header className="navbar">
       <div className="nav-container">
         {/* Logo Section */}
-        <h1 className="logo">BwraiMart</h1>
+        <Link to={`/`}>
+          <h1 className="logo">BwraiMart
+          </h1></Link>
 
         {/* Search Bar */}
         <div className="search-bar">
@@ -26,8 +30,8 @@ function Header() {
         {/* Desktop Navigation Icons */}
         <nav className={`nav-links ${menuOpen ? "active" : ""}`}>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
+            <Link to={`/`}>Home</Link>
+            <Link to={`/products`}>Products</Link>
             <li><a href="#">Contact</a></li>
             <li><a href="#">About</a></li>
           </ul>

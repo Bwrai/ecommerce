@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import "./Product.css";
 
 
-const Product = ({ product }) => {
+const ProductCard = ({ product }) => {
   const options = {
     edit: false,
     color: "rgba(20, 20, 20, 0.1)",
@@ -13,7 +13,6 @@ const Product = ({ product }) => {
     value: product.ratings,
     isHalf: true,
   };
-
 
   return (
     <Link to={`/products/${product._id}`} className="productCard">
@@ -34,4 +33,4 @@ const Product = ({ product }) => {
   );
 };
 
-export default Product;
+export default ProductCard;

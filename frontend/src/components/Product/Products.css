@@ -1,0 +1,107 @@
+/* Reset default margins and ensure full height */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Products Container */
+  .products {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+    overflow-y: auto; /* Enable scrolling */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  /* Heading Styling */
+  .productsHeading {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin: 2rem 0;
+    padding-bottom: 1rem;
+    position: relative;
+  }
+  
+  .productsHeading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #00c4ff);
+    border-radius: 2px;
+  }
+  
+  /* Scrollbar Styling - Invisible until scrolling */
+  .products {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: transparent transparent; /* Firefox - invisible by default */
+  }
+  
+  .products::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .products::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .products::-webkit-scrollbar-thumb {
+    background: rgba(0, 123, 255, 0.7); /* Semi-transparent blue */
+    border-radius: 4px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Show scrollbar when scrolling (requires JS) or hovering */
+  .products.scrolling::-webkit-scrollbar-thumb,
+  .products:hover::-webkit-scrollbar-thumb {
+    opacity: 1;
+  }
+  
+  .products::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 123, 255, 1); /* Fully opaque on hover */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .products {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      padding: 1rem;
+      gap: 1.5rem;
+    }
+  
+    .productsHeading {
+      font-size: 2rem;
+      margin: 1.5rem 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .products {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  
+    .productsHeading {
+      font-size: 1.8rem;
+    }
+  }
+  
+  /* Optional: Enhance ProductCard styling (assuming ProductCard has its own CSS) */
+  .products > * {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .products > *:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
