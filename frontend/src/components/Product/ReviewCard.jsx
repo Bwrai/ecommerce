@@ -12,11 +12,13 @@ const ReviewCard = ({ review }) => {
         precision: 0.5,
     }
     return (
-        <div className='reviewCard'>
-            <img src={profilePng} alt="User Profile" />
-            <p>{name}</p>
-            <Rating {...ratingOptions} />
-            <span className='reviewCardComment'>{comment}</span>
+        <div className='reviewList'>
+            <div className='reviewCard'>
+                <img src={profilePng} alt="User Profile" />
+                <p>{name}</p>
+                <Rating {...ratingOptions} />
+                <span className='reviewCardComment'>{comment}</span>
+            </div>
         </div>
     )
 }

@@ -1,23 +1,31 @@
 /* ReviewCard.css */
+.reviewList {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
 .reviewCard {
     background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 350px;
-    margin: 15px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
 }
 
 .reviewCard:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .reviewCard img {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
@@ -29,41 +37,32 @@
     font-size: 1.1rem;
     font-weight: 600;
     color: #333;
-    line-height: 1.4;
-}
-
-.reviewCard .MuiRating-root {
-    margin-bottom: 12px;
-}
-
-.reviewCard .MuiRating-iconFilled {
-    color: #ffd700; /* Gold star color */
-}
-
-.reviewCard .MuiRating-iconEmpty {
-    color: #e0e0e0; /* Light gray empty stars */
+    text-align: center;
 }
 
 .reviewCardComment {
-    display: block;
     font-size: 0.95rem;
     color: #666;
-    line-height: 1.6;
-    font-style: italic;
-    word-wrap: break-word;
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 10px;
 }
 
-/* Responsive adjustments */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .reviewCard {
-        max-width: 100%;
-        margin: 10px 0;
+    .reviewList {
         padding: 15px;
     }
 
+    .reviewCard {
+        padding: 15px;
+        margin: 10px 0;
+    }
+
     .reviewCard img {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
     }
 
     .reviewCard p {
@@ -73,4 +72,30 @@
     .reviewCardComment {
         font-size: 0.9rem;
     }
+}
+
+@media (max-width: 480px) {
+    .reviewCard {
+        padding: 12px;
+    }
+
+    .reviewCard img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .reviewCard p {
+        font-size: 0.95rem;
+    }
+
+    .reviewCardComment {
+        font-size: 0.85rem;
+    }
+}
+
+/* Enhance accessibility */
+.reviewCard:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
 }

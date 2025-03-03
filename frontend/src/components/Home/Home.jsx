@@ -17,8 +17,8 @@ function Home() {
 
   useEffect(() => {
     dispatch(getProducts())
+    
   }, [dispatch])
-
   useEffect(() => {
     if (error && error !== preErrorRef.current) {
       preErrorRef.current = error;
