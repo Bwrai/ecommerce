@@ -111,3 +111,35 @@
     font-size: larger;
     font-weight: 200;
   }
+  .pagination-container {
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 5px;
+}
+
+.page-item {
+    padding: 5px 10px;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-radius: 3px;
+}
+
+.page-item:hover:not(.active) .page-link {
+    background-color: #f0f0f0;
+}

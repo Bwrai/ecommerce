@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Header.css";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { MdSearch, MdMenu, MdClose } from "react-icons/md";
-import { Link, Meta, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getProducts } from "../../../features/productSlice";
 import Metadata from "../Metadata";
@@ -20,7 +20,6 @@ function Header() {
     dispatch(getProducts({ keyword: trimmedKeyword }))
     navigate(trimmedKeyword ? `/products/search/${encodeURIComponent(trimmedKeyword)}` : '/products')
   }
-
 
   // Toggle menu visibility
   const toggleMenu = () => setMenuOpen(!menuOpen);

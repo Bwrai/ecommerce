@@ -5,7 +5,7 @@ import ApiFeatures from '../utils/apifeatures.js';
 
 // Create Products -Admin
 export const createProduct = catchAsyncErrors(async (req, res, next) => {
-    
+
     try {
         req.body.user = req.user.id;
         const product = await Product.create(req.body);
@@ -20,7 +20,7 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Products -Admin
 export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
-    const resultPerPage = 8;
+    const resultPerPage = 12;
     const productsCount = await Product.countDocuments();
     try {
         const apifeature = new ApiFeatures(Product.find(), req.query)
@@ -32,6 +32,7 @@ export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
             success: true,
             products,
             productsCount,
+            resultPerPage,
         })
     } catch (error) {
         next(error)
