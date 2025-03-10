@@ -1,0 +1,88 @@
+/* Search.css */
+.searchBox {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBox input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.searchBox input:focus {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+.searchBox button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.searchBox button:hover {
+    background-color: #0056b3;
+}
+
+.searchBox button:active {
+    background-color: #004085;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .searchBox {
+        flex-direction: column;
+        padding: 0 0.5rem;
+        margin: 1rem auto;
+    }
+
+    .searchBox input {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .searchBox button {
+        width: 100%;
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .searchBox input {
+        padding: 0.65rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .searchBox button {
+        padding: 0.65rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Accessibility */
+.searchBox input:focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.searchBox button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}

@@ -6,6 +6,7 @@ import Alert from './components/Alert/Alert';
 import "./styles/Alert.css";
 import ProductDetails from "./components/Product/ProductDetails";
 import Products from "./components/Product/Products";
+import Search from "./components/Product/Search";
 
 function App() {
   return (
@@ -14,8 +15,10 @@ function App() {
       <Alert />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/products/search/:keyword" element={<Products />} />
+        <Route path="/search" element={<Search />} />
         {/* Add more routes here */}
       </Routes>
       <Footer />

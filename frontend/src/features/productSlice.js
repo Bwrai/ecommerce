@@ -4,9 +4,10 @@ import axios from 'axios';
 //Fetch All products
 export const getProducts = createAsyncThunk(
     "products/fetchAll",
-    async (_, { rejectWithValue }) => {
+    async ({ keyword = "" }, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get("/api/products");
+            let link = `/api/products${keyword ? `?keyword=${encodeURIComponent(keyword)}` : ''}`;
+            const { data } = await axios.get(link);
             return data;
 
         } catch (error) {

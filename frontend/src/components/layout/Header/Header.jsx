@@ -2,11 +2,25 @@ import React, { useState } from "react";
 import "./Header.css";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { MdSearch, MdMenu, MdClose } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, Meta, useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getProducts } from "../../../features/productSlice";
+import Metadata from "../Metadata";
 
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const searchSubmitHandler = (e) => {
+    e.preventDefault();
+    const trimmedKeyword = keyword.trim();
+    dispatch(getProducts({ keyword: trimmedKeyword }))
+    navigate(trimmedKeyword ? `/products/search/${encodeURIComponent(trimmedKeyword)}` : '/products')
+  }
+
 
   // Toggle menu visibility
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -20,11 +34,21 @@ function Header() {
           </h1></Link>
 
         {/* Search Bar */}
+        <Metadata title="search a product" />
         <div className="search-bar">
-          <input type="text" placeholder="Search for products, brands, and more" />
-          <button className="search-button">
-            <MdSearch />
-          </button>
+          <form onSubmit={searchSubmitHandler}>
+            <input
+              type="text"
+              placeholder="Search for products, brands, and more"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              autoFocus
+              aria-label="search a product"
+            />
+            <button className="search-button" type="submit">
+              <MdSearch />
+            </button>
+          </form>
         </div>
 
         {/* Desktop Navigation Icons */}

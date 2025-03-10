@@ -7,16 +7,18 @@ import Loader from "../layout/Loader/Loader.jsx";
 import { showAlert } from "../../features/alertSlice.js";
 import { v4 as uuidv4 } from 'uuid';
 import ProductCard from "./ProductCard.jsx";
+import { useParams } from "react-router-dom";
 
 
 function Home() {
   const dispatch = useDispatch();
   const { products, loading, error, productsCount } = useSelector((state) => state.product)
   const preErrorRef = useRef(null);
+  const { keyword } = useParams()
 
   useEffect(() => {
-    dispatch(getProducts())
-    
+    dispatch(getProducts({ keyword: keyword || "" }))
+
   }, [dispatch])
   useEffect(() => {
     if (error && error !== preErrorRef.current) {
