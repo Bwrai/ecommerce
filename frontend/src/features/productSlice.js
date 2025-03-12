@@ -4,9 +4,9 @@ import axios from 'axios';
 //Fetch All products
 export const getProducts = createAsyncThunk(
     "products/fetchAll",
-    async ({ keyword = "", page = 1, limit = 8 }, { rejectWithValue }) => {
+    async ({ keyword = "", page = 1, limit = 8, price = [0, 250000] }, { rejectWithValue }) => {
         try {
-            let link = `/api/products?keyword=${encodeURIComponent(keyword)}&page=${page}&limit=${limit}`;
+            let link = `/api/products?keyword=${encodeURIComponent(keyword)}&page=${page}&limit=${limit}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
             const { data } = await axios.get(link);
             return data;
 
