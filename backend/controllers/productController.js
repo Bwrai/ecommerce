@@ -17,27 +17,30 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
         next(error);
     }
 })
-
-// Get All Products -Admin
+// Get all Products -Admin
 export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
     const resultPerPage = 8;
+    
+    const apiFeatures = new ApiFeatures(Product.find(), req.query)
+        .search()
+        .filter();
+    
     const productsCount = await Product.countDocuments();
-    try {
-        const apifeature = new ApiFeatures(Product.find(), req.query)
-            .search()
-            .filter()
-            .pagination(resultPerPage);
-        const products = await apifeature.query;
-        return res.status(200).send({
-            success: true,
-            products,
-            productsCount,
-            resultPerPage,
-        })
-    } catch (error) {
-        next(error)
-    }
-})
+    
+    const filteredProductsQuery = apiFeatures.query.clone();
+    const filteredProducts = await filteredProductsQuery;
+    const filteredProductsCount = filteredProducts.length;
+    
+    const products = await apiFeatures.pagination(resultPerPage).query;
+
+    return res.status(200).json({
+        success: true,
+        products,
+        productsCount,
+        filteredProductsCount,
+        resultPerPage
+    });
+});
 
 // Get Product details
 export const getProductDetails = catchAsyncErrors(async (req, res, next) => {
