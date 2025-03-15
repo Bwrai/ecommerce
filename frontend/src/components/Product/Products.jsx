@@ -11,6 +11,17 @@ import ReactPaginate from "react-paginate";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 
+const categories = [
+  "Laptop",
+  "Mobile",
+  "T-Shirts",
+  "Camera",
+  "Footwear",
+  "Books",
+  "Home Appliances",
+  "Clothing"
+]
+
 // Utility: Debounce function to optimize API calls
 const debounce = (func, delay) => {
   let timeoutId;
@@ -32,6 +43,7 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sliderValue, setSliderValue] = useState([0, 100000]);
   const [priceFilter, setPriceFilter] = useState([0, 100000]);
+  const [category, setCategory] = useState("");
 
   const pageLimit = resultPerPage || 8;
   const validProductsCount = filteredProductsCount || productsCount;
@@ -53,12 +65,14 @@ const Products = () => {
   };
 
   // Debounced function to apply price filter
-  const applyPriceFilter = useCallback(
-    debounce((newPrice) => {
-      setPriceFilter(newPrice);
-    }, 500),
+  const applyPriceFilter = useMemo(
+    () =>
+      debounce((newPrice) => {
+        setPriceFilter(newPrice);
+      }, 500),
     []
   );
+  
 
   useEffect(() => {
     applyPriceFilter(sliderValue);
@@ -72,9 +86,16 @@ const Products = () => {
         page: currentPage,
         limit: pageLimit,
         price: priceFilter,
+        category,
       })
     );
-  }, [dispatch, keyword, priceFilter, currentPage]);
+  }, [ keyword, priceFilter, currentPage, category]);
+
+  //Handle category change
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value)
+    setCurrentPage(1);
+  }
 
   // Handle API errors
   useEffect(() => {
@@ -113,6 +134,17 @@ const Products = () => {
               max={250000}
               aria-label="Price range filter"
             />
+          </Typography>
+
+          {/* Category Filter Box */}
+          <Typography>
+            Category
+            <select value={category} onChange={handleCategoryChange} className="categoryFilter">
+              <option value="">All Categories</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
           </Typography>
         </div>
       </div>
