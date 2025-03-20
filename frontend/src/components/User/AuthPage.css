@@ -1,0 +1,43 @@
+.authContainer {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0% , #c3cfe2 100%);
+}
+
+.authCard {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+.formSelector {
+    display: flex;
+    background: #f0f0f0;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+.selectorButton {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+.selectorButton.active {
+    background: #007bff;
+    color: white;
+}
+.selectorButton:hover:not(.active) {
+    background: #e0e0e0;
+}
+
+.formContent {
+    padding: 0 1rem;
+}

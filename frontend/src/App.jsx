@@ -7,6 +7,7 @@ import "./styles/Alert.css";
 import ProductDetails from "./components/Product/ProductDetails";
 import Products from "./components/Product/Products";
 import Search from "./components/Product/Search";
+import AuthPage from "./components/User/AuthPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/products/search/:keyword" element={<Products />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/login" element={<AuthPage />} />
         {/* Add more routes here */}
       </Routes>
       <Footer />

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Header.css";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { MdSearch, MdMenu, MdClose } from "react-icons/md";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getProducts } from "../../../features/productSlice";
 import Metadata from "../Metadata";
@@ -61,7 +61,7 @@ function Header() {
 
           {/* Navbar Icons */}
           <div className="nav-icons">
-            <FaUserCircle className="icon" />
+            <Link to={`/login`}><FaUserCircle className="icon" /></Link>
             <FaShoppingCart className="icon" />
           </div>
         </nav>
