@@ -7,7 +7,7 @@ export const login = createAsyncThunk(
     async ({ email, password }, thunkAPI) => {
         try {
             const config = { headers: { "Content-Type": "application/json" } }
-            const { data } = await axios.post('api/login', { email, password }, config)
+            const { data } = await axios.post('/api/login', { email, password }, config)
             return data.user
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.message);
@@ -20,10 +20,12 @@ export const register = createAsyncThunk(
     async (userData, thunkAPI) => {
         try {
             const config = { headers: { "Content-Type": "multipart/form-data" } }
-            const data = await axios.post('/api/register', userData, config);
-            return data.user;
+            const response = await axios.post('/api/register', userData, config);
+            return response.data.user;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.message)
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message || error.message || "Registration failed"
+            )
         }
     }
 )

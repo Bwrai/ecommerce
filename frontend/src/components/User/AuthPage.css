@@ -1,9 +1,10 @@
+/* Authentication  */
 .authContainer {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #f5f7fa 0% , #c3cfe2 100%);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .authCard {
@@ -14,6 +15,7 @@
     width: 100%;
     max-width: 450px;
 }
+
 .formSelector {
     display: flex;
     background: #f0f0f0;
@@ -21,6 +23,7 @@
     margin-bottom: 2rem;
     overflow: hidden;
 }
+
 .selectorButton {
     flex: 1;
     padding: 0.75rem;
@@ -30,14 +33,84 @@
     transition: all 0.3s ease;
     font-weight: 500;
 }
+
 .selectorButton.active {
     background: #007bff;
     color: white;
 }
+
 .selectorButton:hover:not(.active) {
     background: #e0e0e0;
 }
 
 .formContent {
     padding: 0 1rem;
+}
+
+/* Auth Form */
+
+.authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.inputGroup {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.inputGroup svg {
+    color: #666;
+    width: 20px;
+    height: 20px;
+}
+
+.inputGroup input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.inputGroup input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.inputGroup .errorField {
+    border-color: #dc3545;
+}
+
+.errorMessage {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    position: absolute;
+    bottom: -1.25rem;
+    left: 2rem;
+}
+
+button[type="submit"] {
+    padding: 0.85rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover:not(:disabled){
+    background: #0056b3;
+    transform: translateY(-0.3px);
+}
+button[type="submit"]:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
 }

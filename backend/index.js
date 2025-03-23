@@ -8,6 +8,7 @@ import user from './routes/userRoute.js';
 import order from './routes/orderRoute.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
+import fileUpload from 'express-fileupload';
 
 
 
@@ -20,7 +21,8 @@ app.use(cors({
     origin: 'http://localhost:5173', // React frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
-  }));
+}));
+app.use(fileUpload());
 
 
 const PORT = process.env.PORT || 5000;

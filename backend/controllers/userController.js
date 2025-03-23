@@ -23,7 +23,6 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
 })
 
 // Login User
-
 export const loginUser = catchAsyncErrors(async (req, res, next) => {
     const { email, password } = req.body;
 
