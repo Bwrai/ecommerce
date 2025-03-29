@@ -9,20 +9,31 @@ import order from './routes/orderRoute.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
 import fileUpload from 'express-fileupload';
-
+import { v2 as cloudinary } from 'cloudinary';
 
 
 const app = express();
 dotEnv.config();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173', // React frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
+    credentials: true,
 }));
-app.use(fileUpload());
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+}));
+
+// Cloudinary Config
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET_KEY
+})
 
 
 const PORT = process.env.PORT || 5000;

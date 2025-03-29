@@ -114,3 +114,36 @@ button[type="submit"]:disabled {
     cursor: not-allowed;
     transform: none;
 }
+
+
+/* Avatar Uploader Specific Styles */
+.avatarUploader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 15px 0;
+  }
+  
+  .avatarUploader img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    background: #f8f8f8;
+    transition: border-color 0.3s ease;
+  }
+  
+  .avatarUploader input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px dashed #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #fafafa;
+  }
+  
+  .avatarUploader input[type="file"]:hover {
+    border-color: #007bff;
+    background: #f5faff;
+  }

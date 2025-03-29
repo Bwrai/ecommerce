@@ -5,18 +5,46 @@ import { errorHandler } from "../utils/errorHandler.js";
 import { sendToken } from "../utils/jwtToken.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from 'crypto';
+import { v2 as cloudinary } from "cloudinary";
 
 
 // Register new user
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
-    const { name, email, password } = req.body;
+    const { name = '', email = '', password = '' } = req.body;
+
+    if (!name || !email || !password) {
+        return next(errorHandler(400, "Please provide name, email and password"))
+    }
+
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    if (existingUser) {
+        return next(errorHandler(400, "User with this email already exists"));
+    }
+
+    let uploadResult = {
+        public_id: null,
+        secure_url: null,
+    }
+
+    if (req.files && req.files.avatar) {
+        try {
+            uploadResult = await cloudinary.uploader.upload(req.files.avatar.tempFilePath, {
+                folder: "ecommerce_avatars",
+                public_id: `${Date.now()}_${name}_avatar`,
+                resource_type: "image"
+            })
+        } catch (error) {
+            return next(errorHandler(400, "Error uploading avatar image"))
+        }
+    }
+    
     const user = await User.create({
         name,
         email,
         password,
         avatar: {
-            public_id: "publicid",
-            url: "url.."
+            public_id: uploadResult.public_id,
+            url: uploadResult.secure_url,
         }
     })
     sendToken(user, 201, res);

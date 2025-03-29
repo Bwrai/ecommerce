@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
-import "../../images/profile.png"
+import defaultAvatar from "../../images/profile.png"
 
 import "./AuthPage.css"
 import { showAlert } from '../../features/alertSlice';
 import { v4 as uuidv4 } from 'uuid';
-import { clearErrors } from '../../features/productSlice';
+import { clearErrors } from '../../features/User/userSlice';
 import Loader from '../layout/Loader/Loader';
 
 import * as Yup from 'yup';
@@ -53,7 +53,7 @@ const loginValidationSchema = Yup.object().shape({
         .email("Invalid email format")
         .required("Email is Required"),
     password: Yup.string()
-        .min(6, "Password must be atleast 6 characters")
+        .min(8, "Password must be atleast 8 characters")
         .required("Password is required")
 })
 
@@ -73,22 +73,14 @@ const registerValidationSchema = Yup.object().shape({
     passwordConfirmation: Yup.string()
         .oneOf([Yup.ref("password"), null], "Password must match")
         .required("Password confirmation is required"),
-    avatar: Yup.mixed()
-        .test("fileSize", "File must be less than 2Mb", (value) => {
-            return !value || (value && value.size <= 2 * 1024 * 1024);
-        })
-        .test("fileType", "Only image files are allowed", (value) => {
-            return !value || (value && value.type?.startsWith("image/"));
-        })
 })
-
 
 
 const AuthPage = () => {
     const [activeForm, setActiveForm] = useState("login");
     const { dispatch, loading } = useAuthentication();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [avatarPreviewUrl, setAvatarPreviewUrl] = useState("/Profile.png");
+    const [avatarPreviewUrl, setAvatarPreviewUrl] = useState(defaultAvatar);
 
     const {
         register: registerLogin,
@@ -108,20 +100,26 @@ const AuthPage = () => {
     // Avatar upload
     const handleAvatarUpload = useCallback((e) => {
         const selectedFile = e.target.files?.[0];
-        if (!selectedFile) return;
+        if (!selectedFile) {
+            setValue("avatar", null);
+            setAvatarPreviewUrl(defaultAvatar);
+            return;
+        }
 
         if (selectedFile.size > 2 * 1024 * 1024) {
             setError("avatar", { type: "manual", message: "File must be less than 2Mb" })
+            setAvatarPreviewUrl(defaultAvatar);
             return;
         }
 
         if (!selectedFile.type.startsWith("image/")) {
             setError("avatar", { type: "manual", message: "Only images are allowed" })
+            setAvatarPreviewUrl(defaultAvatar);
             return;
         }
         const fileReader = new FileReader()
         fileReader.onload = () => {
-            if (fileReader.readyState === 2) {
+            if (fileReader.readyState === fileReader.DONE) {
                 setAvatarPreviewUrl(fileReader.result);
                 setValue("avatar", selectedFile)
             }
@@ -133,6 +131,7 @@ const AuthPage = () => {
         setIsSubmitting(true);
         try {
             await dispatch(login(data)).unwrap()
+            setIsSubmitting(false)
         } catch (error) {
             setIsSubmitting(false)
         }
@@ -140,20 +139,19 @@ const AuthPage = () => {
 
     const onRegisterSubmit = async (data) => {
         setIsSubmitting(true);
-        try {
-            const formData = new FormData();
-            formData.append("name", data.name);
-            formData.append("email", data.email);
-            formData.append("password", data.password)
-            if (data.avatar) {
-                formData.append('avatar', data.avatar);
-            }
-            await dispatch(register(formData)).unwrap()
-            reset();
-            setAvatarPreviewUrl("/Profile.png")
-        } catch (error) {
-            setIsSubmitting(false)
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("email", data.email);
+        formData.append("password", data.password)
+        if (data.avatar) {
+            formData.append('avatar', data.avatar);
         }
+        await dispatch(register(formData)).unwrap()
+            .then(() => {
+                reset();
+                setAvatarPreviewUrl(defaultAvatar)
+            })
+            .finally(() => setIsSubmitting(false))
     }
 
     if (loading) return <Loader />
@@ -272,10 +270,9 @@ const AuthPage = () => {
                                     </div>
                                 )}
                             </div>
-                            {/* <div className='inputGroup avatarUploader'>
-                            <img src={avatarPreviewUrl} alt="Profile avatar preview" />
+                            <div className='inputGroup avatarUploader'>
+                                <img src={avatarPreviewUrl} alt="Profile avatar preview" />
                                 <input
-                                    {...registerSignup("avatar")}
                                     accept='image/*'
                                     onChange={handleAvatarUpload}
                                     type="file"
@@ -285,9 +282,9 @@ const AuthPage = () => {
                                         {registerErrors.avatar.message}
                                     </div>
                                 )}
-                            </div> */}
+                            </div>
                             <button type='submit' disabled={isSubmitting}>
-                                {isSubmitting ? "Registering" : "Register"}
+                                {isSubmitting ? "Registering.." : "Register"}
                             </button>
                         </form>
                     )}
