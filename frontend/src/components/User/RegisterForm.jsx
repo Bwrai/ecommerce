@@ -7,6 +7,8 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import defaultAvatar from "../../images/profile.png";
 import { register } from "../../features/User/userSlice";
+import { showAlert } from "../../features/alertSlice";
+import { v4 as uuidv4 } from "uuid";
 
 // ✅ Validation schema for registration form using Yup
 const registerValidationSchema = Yup.object().shape({
@@ -93,6 +95,11 @@ const RegisterForm = ({ dispatch, isSubmitting, avatarPreviewUrl, setIsSubmittin
                 setAvatarPreviewUrl(defaultAvatar);
             })
             .finally(() => setIsSubmitting(false));
+        dispatch(showAlert({
+            id: uuidv4(),
+            type: "success",
+            message: "User Registration Successfull"
+        }))
     };
 
     return (

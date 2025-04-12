@@ -30,6 +30,31 @@ export const register = createAsyncThunk(
     }
 )
 
+// Load user
+export const loadUser = createAsyncThunk(
+    "user/loadUser",
+    async (_, thunkAPI) => {
+        try {
+            const { data } = await axios.get("/api/me");
+            return data.user;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+// Logout user
+export const logout = createAsyncThunk(
+    "user/logout",
+    async (_, thunkAPI) => {
+        try {
+            await axios.get("/api/logout");
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.message);
+        }
+    }
+)
+
 const initialState = {
     user: null,
     users: [],
@@ -79,6 +104,33 @@ const userSlice = createSlice({
             .addCase(register.rejected, (state, action) => {
                 state.loading = false;
                 state.isAuthenticated = false;
+                state.error = action.payload;
+            })
+            //Load user
+            .addCase(loadUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(loadUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.isAuthenticated = true;
+                state.user = action.payload;
+            })
+            .addCase(loadUser.rejected, (state, action) => {
+                state.loading = false;
+                state.isAuthenticated = false;
+                state.error = action.payload;
+            })
+            // Logout
+            .addCase(logout.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(logout.fulfilled, (state) => {
+                state.user = null;
+                state.isAuthenticated = false;
+                state.loading = false;
+            })
+            .addCase(logout.rejected, (state, action) => {
+                state.loading = false;
                 state.error = action.payload;
             })
     }

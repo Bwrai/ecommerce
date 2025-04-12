@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import * as Yup from "yup";
+import { showAlert } from "../../features/alertSlice";
+import { v4 as uuidv4 } from 'uuid';
+
 
 // ✅ Validation schema for login form using Yup
 const loginValidationSchema = Yup.object().shape({
@@ -26,6 +29,11 @@ const LoginForm = ({ dispatch, isSubmitting, setIsSubmitting }) => {
     setIsSubmitting(true);
     try {
       await dispatch(login(data)).unwrap();
+      dispatch(showAlert({
+        id: uuidv4(),
+        type: "success",
+        message: "User Logged in Successfully"
+      }))
     } finally {
       setIsSubmitting(false);
     }
