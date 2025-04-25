@@ -6,14 +6,7 @@ import Loader from '../layout/Loader/Loader';
 import './Profile.css';
 
 const Profile = () => {
-  const navigate = useNavigate();
-  const { user, isAuthenticated, loading } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
-  }, [isAuthenticated, navigate]);
+  const { user, loading } = useSelector((state) => state.user);
 
   if (loading) return <Loader />;
 
@@ -42,7 +35,7 @@ const Profile = () => {
           </div>
           <div className="profileField">
             <h4>Joined On</h4>
-            <p>{String(user?.createdAt).slice(0, 10)}</p>
+            <p>{new Date(user?.createdAt).toLocaleDateString()}</p>
           </div>
 
           <div className="profileLinks">

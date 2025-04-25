@@ -8,25 +8,25 @@ import ProductDetails from "./components/Product/ProductDetails";
 import Products from "./components/Product/Products";
 import Search from "./components/Product/Search";
 import AuthPage from "./components/User/AuthPage";
-import { store } from './app/store'
 import { useEffect } from "react";
 import { loadUser } from "./features/User/userSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Profile from "./components/User/Profile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
+import Loader from "./components/layout/Loader/Loader";
 
 
 function App() {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
-
+  const { loading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   useEffect(() => {
-    store.dispatch(loadUser())
-  }, [])
+    dispatch(loadUser());
+  }, []);
 
+  if (loading) <Loader />
   return (
     <Router>
       <Header />
-      {/* {isAuthenticated && <UserOptions user={user} />} */}
       <Alert />
       <Routes>
         {/* Public Routes */}

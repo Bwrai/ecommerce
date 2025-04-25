@@ -38,7 +38,7 @@ export const loadUser = createAsyncThunk(
             const { data } = await axios.get("/api/me");
             return data.user;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.message)
+            return thunkAPI.rejectWithValue(null);
         }
     }
 )
@@ -118,6 +118,7 @@ const userSlice = createSlice({
             .addCase(loadUser.rejected, (state, action) => {
                 state.loading = false;
                 state.isAuthenticated = false;
+                state.user = null;
                 state.error = action.payload;
             })
             // Logout
