@@ -37,7 +37,7 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
             return next(errorHandler(400, "Error uploading avatar image"))
         }
     }
-    
+
     const user = await User.create({
         name,
         email,
@@ -181,17 +181,47 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
 
 // Update User Profile
 export const updateUserProfile = catchAsyncErrors(async (req, res, next) => {
+
+    const { name, email } = req.body;
     const newUserData = {
-        name: req.body.name,
-        email: req.body.email,
+        name,
+        email: email.toLowerCase(),
     }
-    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+
+    let uploadResult = {
+        public_id: null,
+        secure_url: null,
+    }
+
+    if (req.files && req.files.avatar) {
+        try {
+            uploadResult = await cloudinary.uploader.upload(req.files.avatar.tempFilePath, {
+                folder: "ecommerce_avatars",
+                public_id: `${Date.now()}_${name}_avatar`,
+                resource_type: "image"
+            });
+
+            newUserData.avatar = {
+                public_id: uploadResult.public_id,
+                url: uploadResult.secure_url,
+            }
+        } catch (error) {
+            return next(errorHandler(400, "Error uploading avatar image"))
+        }
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,
         useFindAndModify: false,
     });
     res.status(200).json({
         success: true,
+        user: {
+            name: updatedUser.name,
+            email: updatedUser.email,
+            avatar: updatedUser.avatar,
+        }
     })
 })
 

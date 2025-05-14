@@ -55,6 +55,20 @@ export const logout = createAsyncThunk(
     }
 )
 
+// Update profile
+export const updateProfile = createAsyncThunk(
+    "user/update",
+    async (userData, thunkAPI) => {
+        try {
+            const config = { headers: { "Content-Type": "multipart/form-data" } };
+            const response = await axios.put("/api/me/update", userData, config);
+            return response.data.user;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.message);
+        }
+    }
+)
+
 const initialState = {
     user: null,
     users: [],
@@ -63,6 +77,8 @@ const initialState = {
     error: null,
     message: null,
     success: null,
+    isUpdated: false,
+
 }
 
 const userSlice = createSlice({
@@ -105,6 +121,22 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.isAuthenticated = false;
                 state.error = action.payload;
+            })
+            //update profile
+            .addCase(updateProfile.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateProfile.fulfilled, (state, action) => {
+                state.loading = false;
+                state.isUpdated = true;
+                state.user = action.payload;
+                state.error = null;
+            })
+            .addCase(updateProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                state.isUpdated = false;
             })
             //Load user
             .addCase(loadUser.pending, (state) => {

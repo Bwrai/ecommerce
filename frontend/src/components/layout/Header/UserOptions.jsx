@@ -72,7 +72,7 @@ const UserOptions = ({ user }) => {
                     icon={
                         <img
                             className='speedDialIcon'
-                            src={user.avatar.url ? user.avatar.url : "/profile.png"}
+                            src={user.avatar?.url || "https://res.cloudinary.com/bwrai/image/upload/v1743238767/ecommerce_avatars/1743238743608_abc_avatar.jpg"}
                             alt='profile'
                         />
                     }
