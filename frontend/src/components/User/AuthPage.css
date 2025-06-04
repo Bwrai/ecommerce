@@ -1,149 +1,168 @@
-/* Authentication  */
+/* Authentication Container */
 .authContainer {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
+/* Auth Card */
 .authCard {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 450px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
 }
 
+/* Form Selector */
 .formSelector {
-    display: flex;
-    background: #f0f0f0;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    overflow: hidden;
+  display: flex;
+  background: #f0f0f0;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  overflow: hidden;
 }
 
 .selectorButton {
-    flex: 1;
-    padding: 0.75rem;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .selectorButton.active {
-    background: #007bff;
-    color: white;
+  background: #007bff;
+  color: white;
 }
 
 .selectorButton:hover:not(.active) {
-    background: #e0e0e0;
+  background: #e0e0e0;
 }
 
+/* Form Content */
 .formContent {
-    padding: 0 1rem;
+  padding: 0 1rem;
 }
 
 /* Auth Form */
-
 .authForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
+/* Input Group with Icons */
 .inputGroup {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .inputGroup svg {
-    color: #666;
-    width: 20px;
-    height: 20px;
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  color: #666;
+  pointer-events: none;
+}
+
+.inputGroup .togglePassword {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #888;
+  width: 20px;
+  height: 20px;
 }
 
 .inputGroup input {
-    flex: 1;
-    padding: 0.75rem;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 2.5rem; /* Room for icons on both sides */
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
 .inputGroup input:focus {
-    outline: none;
-    border-color: #007bff;
+  outline: none;
+  border-color: #007bff;
 }
 
-.inputGroup .errorField {
-    border-color: #dc3545;
+.inputGroup input.errorField {
+  border-color: #dc3545;
 }
 
+/* Error Message */
 .errorMessage {
-    color: #dc3545;
-    font-size: 0.85rem;
-    margin-top: 0.25rem;
-    position: absolute;
-    bottom: -1.25rem;
-    left: 2rem;
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  position: absolute;
+  bottom: -1.25rem;
+  left: 0;
 }
 
+/* Submit Button */
 button[type="submit"] {
-    padding: 0.85rem;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
+  padding: 0.85rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-button[type="submit"]:hover:not(:disabled){
-    background: #0056b3;
-    transform: translateY(-0.3px);
+button[type="submit"]:hover:not(:disabled) {
+  background: #0056b3;
+  transform: translateY(-0.3px);
 }
+
 button[type="submit"]:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
 }
 
-
-/* Avatar Uploader Specific Styles */
+/* Avatar Uploader */
 .avatarUploader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin: 15px 0;
-  }
-  
-  .avatarUploader img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ddd;
-    background: #f8f8f8;
-    transition: border-color 0.3s ease;
-  }
-  
-  .avatarUploader input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px dashed #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    background: #fafafa;
-  }
-  
-  .avatarUploader input[type="file"]:hover {
-    border-color: #007bff;
-    background: #f5faff;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.avatarUploader img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  background: #f8f8f8;
+  transition: border-color 0.3s ease;
+}
+
+.avatarUploader input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #fafafa;
+}
+
+.avatarUploader input[type="file"]:hover {
+  border-color: #007bff;
+  background: #f5faff;
+}

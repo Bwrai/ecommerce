@@ -10,7 +10,9 @@ export const login = createAsyncThunk(
             const { data } = await axios.post('/api/login', { email, password }, config)
             return data.user
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.message);
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message || error.message || "Login failed"
+            );
         }
     }
 )
@@ -69,6 +71,20 @@ export const updateProfile = createAsyncThunk(
     }
 )
 
+// Forgot Password
+export const updatePassword = createAsyncThunk(
+    "user/updatePassword",
+    async (password, thunkAPI) => {
+        try {
+            const config = { headers: { "Content-Type": "application/json" } }
+            const { data } = await axios.put(`/api/password/update`, password, config)
+            return data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
 const initialState = {
     user: null,
     users: [],
@@ -90,6 +106,9 @@ const userSlice = createSlice({
         },
         clearMessage: (state) => {
             state.message = null;
+        },
+        clearUpdateStatus: (state) => {
+            state.isUpdated = false;
         }
     },
     extraReducers: (builder) => {
@@ -138,6 +157,21 @@ const userSlice = createSlice({
                 state.error = action.payload;
                 state.isUpdated = false;
             })
+            //Update Password
+            .addCase(updatePassword.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updatePassword.fulfilled, (state, action) => {
+                state.loading = false;
+                state.isUpdated = true;
+                state.message = action.payload.message;
+            })
+            .addCase(updatePassword.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+
+            })
             //Load user
             .addCase(loadUser.pending, (state) => {
                 state.loading = true;
@@ -169,5 +203,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { clearErrors, clearMessage } = userSlice.actions;
+export const { clearErrors, clearMessage, clearUpdateStatus } = userSlice.actions;
 export default userSlice.reducer;

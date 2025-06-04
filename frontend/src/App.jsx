@@ -15,6 +15,7 @@ import Profile from "./components/User/Profile";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Loader from "./components/layout/Loader/Loader";
 import UpdateProfile from "./components/User/UpdateProfile";
+import UpdatePassword from "./components/User/UpdatePassword";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/account" element={<Profile />} />
           <Route path="/me/update" element={<UpdateProfile />} />
+          <Route path="/me/password/update" element={<UpdatePassword />} />
         </Route>
 
 
