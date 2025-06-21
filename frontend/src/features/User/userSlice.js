@@ -71,7 +71,7 @@ export const updateProfile = createAsyncThunk(
     }
 )
 
-// Forgot Password
+// Update Password
 export const updatePassword = createAsyncThunk(
     "user/updatePassword",
     async (password, thunkAPI) => {
@@ -79,6 +79,19 @@ export const updatePassword = createAsyncThunk(
             const config = { headers: { "Content-Type": "application/json" } }
             const { data } = await axios.put(`/api/password/update`, password, config)
             return data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.message)
+        }
+    }
+)
+// Forgot Password
+export const forgotPassword = createAsyncThunk(
+    "user/forgotPassword",
+    async (email, thunkAPI) => {
+        try {
+            const config = { headers: { "Content-Type": "application/json" } };
+            const { data } = await axios.post(`/api/password/forgot`, email, config);
+            return data.message;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.message)
         }
@@ -170,7 +183,18 @@ const userSlice = createSlice({
             .addCase(updatePassword.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-
+            })
+            //Forgot Password
+            .addCase(forgotPassword.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(forgotPassword.fulfilled, (state, action) => {
+                state.loading = false;
+                state.message = action.payload;
+            })
+            .addCase(forgotPassword.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             })
             //Load user
             .addCase(loadUser.pending, (state) => {

@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Loader from "./components/layout/Loader/Loader";
 import UpdateProfile from "./components/User/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword";
+import ForgotPassword from "./components/User/ForgotPassword";
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
     dispatch(loadUser());
   }, []);
 
-  if (loading) <Loader />
+  if (loading) return <Loader />
   return (
     <Router>
       <Header />
@@ -38,7 +39,7 @@ function App() {
         <Route path="/products/search/:keyword" element={<Products />} />
         <Route path="/search" element={<Search />} />
         <Route path="/login" element={<AuthPage />} />
-
+        <Route path="/password/forgot" element={<ForgotPassword />} />
 
         {/* User Protected Routes */}
         <Route element={<ProtectedRoute />}>
