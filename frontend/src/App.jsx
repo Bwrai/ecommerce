@@ -17,6 +17,7 @@ import Loader from "./components/layout/Loader/Loader";
 import UpdateProfile from "./components/User/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
+import ResetPassword from "./components/User/ResetPassword";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/login" element={<AuthPage />} />
         <Route path="/password/forgot" element={<ForgotPassword />} />
+        <Route path="/password/reset/:token" element={<ResetPassword />} />
 
         {/* User Protected Routes */}
         <Route element={<ProtectedRoute />}>
